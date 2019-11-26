@@ -7,6 +7,27 @@ import Todos from "./pages/Todos";
 import "./css/MyApp.css";
 import AddTodo from "./pages/AddTodo";
 
+const links = [
+  {
+    link: "/",
+    component: () => <App />,
+    name: "Home"
+  },
+  {
+    link: "/about",
+    component: () => <About />,
+    name: "About"
+  },
+  {
+    link: "/todos",
+    component: () => <Todos />,
+    name: "Todos"
+  },
+  {
+    link: "/add-todo",
+    component: () => <AddTodo />
+  }
+];
 const MyApp = () => {
   const { state, actions } = useAppState();
 
@@ -14,29 +35,26 @@ const MyApp = () => {
     <AppContext.Provider value={{ state, actions }}>
       <Router>
         <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/about">About</Link>
-          </li>
-          <li>
-            <Link to="/todos">Todos</Link>
-          </li>
+          {links.map((item, index) => {
+            return (
+              <li key={index}>
+                <Link to={item.link}>{item.name}</Link>
+              </li>
+            );
+          })}
         </ul>
         <Switch>
-          <Route exact path="/">
-            <App />
-          </Route>
-          <Route path="/about">
-            <About />
-          </Route>
-          <Route path="/todos">
-            <Todos />
-          </Route>
-          <Route path="/add-todo">
-            <AddTodo />
-          </Route>
+          {links.map((item, index) => {
+            return (
+              <Route
+                key={index}
+                exact={item.link === "/" ? true : false}
+                path={item.link}
+              >
+                {item.component}
+              </Route>
+            );
+          })}
         </Switch>
       </Router>
     </AppContext.Provider>

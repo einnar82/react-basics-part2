@@ -22,24 +22,23 @@ const AddTodo = () => {
     actions.addTodo(newTodo);
     setTodo({ title: "", body: "" });
   };
+
   return (
     <>
-      <p>Title:</p>
-      <input
-        type="text"
-        name="title"
-        value={todo.title}
-        onChange={handleInputChange}
-      />
-      <br />
-      <p>Body: </p>
-      <input
-        type="text"
-        name="body"
-        value={todo.body}
-        onChange={handleInputChange}
-      />
-      <br />
+      {Object.keys(todo).map((item, index) => {
+        return (
+          <React.Fragment key={index}>
+            <p>{item}: </p>
+            <input
+              type="text"
+              name={item}
+              value={todo[item]}
+              onChange={handleInputChange}
+            />
+            <br />
+          </React.Fragment>
+        );
+      })}
       <button type="button" onClick={handleSubmit}>
         Add
       </button>
