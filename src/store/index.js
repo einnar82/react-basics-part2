@@ -34,6 +34,12 @@ const getActions = setState => ({
       ...state,
       todos: state.todos.concat(todo)
     }));
+  },
+  deleteTodo: id => {
+    setState(state => ({
+      ...state,
+      todos: state.todos.filter(todo => todo.id !== id)
+    }));
   }
 });
 

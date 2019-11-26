@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useAppContext } from "../store";
 const AddTodo = () => {
   const [todo, setTodo] = useState({
@@ -14,7 +14,12 @@ const AddTodo = () => {
   };
 
   const handleSubmit = () => {
-    actions.addTodo(todo);
+    const { todos } = state;
+    const newTodo = Object.assign(todo, {
+      ...todo,
+      id: todos.length + 1
+    });
+    actions.addTodo(newTodo);
     setTodo({ title: "", body: "" });
   };
   return (
