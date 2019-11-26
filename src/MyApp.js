@@ -34,7 +34,7 @@ const MyApp = () => {
   return (
     <AppContext.Provider value={{ state, actions }}>
       <Router>
-        <ul>
+        <ul className="myapp__list">
           {links.map((item, index) => {
             return (
               <li key={index}>
